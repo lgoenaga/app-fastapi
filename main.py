@@ -55,3 +55,10 @@ def content_home():
 @app.get("/movies", tags=["Movies"])
 def get_movies():
     return movies
+
+@app.get("/movies/{id}", tags=["Movies"])
+def get_movie(id: int):
+    for item in movies:
+        if item["id"] == id:
+            return item
+    return "Pelicula no encontrada"
