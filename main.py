@@ -62,3 +62,15 @@ def get_movie(id: int):
         if item["id"] == id:
             return item
     return "Pelicula no encontrada"
+
+@app.get("/movies/", tags=["Movies"])
+def get_movies_by_categories(categories: str, year: int=None):
+    movies_categories=[]
+    for item in movies:
+        if categories in item["categories"]:
+            if year!=None:
+                if item["year"]==year:
+                    movies_categories.append(item)
+            else:
+                movies_categories.append(item)    
+    return movies_categories
