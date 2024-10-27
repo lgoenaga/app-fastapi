@@ -6,27 +6,27 @@ class Movie(BaseModel):
     title: str = Field(
         min_length=5,
         max_length=50,
-        description="Nombre de la pelicula",
+        description="Nombre de la película",
     )
     description: str = Field(
         min_length=5,
         max_length=250,
-        description="Descripcion de la pelicula",
+        description="Descripción de la película",
     )
     rating: float = Field(
         ge=0.0,
         le=10.0,
-        description="Rating de la pelicula entre 0.0 y 10.0",
+        description="Rating de la película entre 0.0 y 10.0",
     )
     year: int = Field(
         ge=1900,
         le=2024,
-        description="Año de la pelicula entre 1900 y 2024",
+        description="Año de la película entre 1900 y 2024",
     )
     categories: list = Field(
-        min_length=4, 
-        max_length=50, 
-        description="Categorias de la pelicula",
+        min_length=1, 
+        max_length=5, 
+        description="Categorías de la película",
     )
   
     model_config = {
@@ -34,8 +34,8 @@ class Movie(BaseModel):
             "examples": [
                 {
                     "id": 1,
-                    "title": "Mi pelicula",
-                    "description": "Descripcion de mi pelicula",
+                    "title": "Mi película",
+                    "description": "Descripción de mi película",
                     "rating": 8.0,
                     "year": 2020,
                     "categories": ["Action", "Thriller"]
@@ -50,8 +50,8 @@ class Movie(BaseModel):
         json_schema_extra = {
             "example": {
                 "id": 1,
-                "title": "Mi pelicula",
-                "description": "Descripcion de mi pelicula",
+                "title": "Mi película",
+                "description": "Descripción de mi película",
                 "rating": 8.0,
                 "year": 2020,
                 "categories": ["Action", "Thriller"],
