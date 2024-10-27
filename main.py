@@ -1,4 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
+
+from models import Movie
+
 
 app = FastAPI()
 app.title = "My API con FastAPI"
@@ -74,3 +77,28 @@ def get_movies_by_categories(categories: str, year: int=None):
             else:
                 movies_categories.append(item)    
     return movies_categories
+
+@app.post ("/movies", tags=["Movies"])
+def create_movie(movie: Movie):
+    movies.append(movie)
+    return movie
+
+@app.put("/movies/{id}", tags=["Movies"])
+def update_movie(id: int, movie: Movie):
+    for item in movies:
+        if item["id"] == id:
+            item["title"] = movie.title
+            item["description"] = movie.description
+            item["rating"] = movie.rating
+            item["year"] = movie.year
+            item["categories"] = movie.categories
+            return item
+    return "Pelicula no encontrada"
+
+@app.delete("/movies/{id}", tags=["Movies"])
+def delete_movie(id: int):
+    for item in movies:
+        if item["id"] == id:
+            movies.remove(item)
+            return "Pelicula eliminada"
+    return "Pelicula no encontrada"
