@@ -14,6 +14,8 @@ class Movie(BaseModel):
         description="Descripcion de la pelicula",
     )
     rating: float = Field(
+        ge=0.0,
+        le=10.0,
         description="Rating de la pelicula entre 0.0 y 10.0",
     )
     year: int = Field(
@@ -22,7 +24,8 @@ class Movie(BaseModel):
         description="Año de la pelicula entre 1900 y 2024",
     )
     categories: list = Field(
-        min_length=4, max_length=50, 
+        min_length=4, 
+        max_length=50, 
         description="Categorias de la pelicula",
     )
   
