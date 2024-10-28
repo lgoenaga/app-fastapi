@@ -43,9 +43,9 @@ class Movie(BaseModel):
         le=2024,
         description="Año de la película entre 1900 y 2024",
     )
-    categories: list = Field(
-        min_length=1, 
-        max_length=5, 
+    categories: str = Field(
+        min_length=5, 
+        max_length=10, 
         description="Categorías de la película",
     )
   
@@ -58,7 +58,7 @@ class Movie(BaseModel):
                     "description": "Descripción de mi película",
                     "rating": 8.0,
                     "year": 2020,
-                    "categories": ["Action", "Thriller"]
+                    "categories": "Action"
                 }
             ]
         }
