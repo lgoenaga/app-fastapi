@@ -180,3 +180,10 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+# SQLite
+#  This is a SQLite database file.  It is not recommended to ignore this file as it
+#  can contain sensitive information.  If you do choose to ignore it, you will need to
+#  manually delete the file when you are done with it.
+*.db
+*.sqlite
