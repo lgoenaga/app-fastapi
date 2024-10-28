@@ -3,9 +3,8 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from typing import List
 from middleware.jwt_bearer import JWTBearer
-from model import Movie, UserModel
+from model import Movie
 from models.movie import ModelMovie
-from jwt_manager import create_token
 from config.database import session
 
 movie_router =  APIRouter()
@@ -87,14 +86,3 @@ def delete_movie(id: int):
         db.delete(movie)
         db.commit()
         return JSONResponse(status_code=200, content={"message": "Película eliminada"})
-
-
-@movie_router.post("/login", tags=["Auth"], response_model=dict, status_code=200)
-def login(user: UserModel):
-    token = create_token(user.model_dump())
-    if token:
-        return JSONResponse(status_code=200, content={"token": token})
-    else:
-        return JSONResponse(
-            status_code=401, content={"message": "Credenciales incorrectas"}
-        )

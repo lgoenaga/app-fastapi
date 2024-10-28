@@ -1,10 +1,6 @@
-from sqlalchemy import Column, Float, Integer, String, ARRAY
-
-
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Float, Integer, String
 
 from config.database import db_td
-
 
 class ModelMovie(db_td):
     __tablename__ = "movies"
