@@ -57,28 +57,26 @@ def get_movies_by_categorys_and_year(
 @movie_router.post(
     "/movies",
     tags=["Movies"],
-    response_model=Movie,
+    response_model=dict,
     status_code=201,
     dependencies=[Depends(JWTBearer())]
 )
-def create_movie(movie: Movie) -> Movie:
+def create_movie(movie: Movie) -> dict:
     with session() as db:
-        new_movie = MovieService(db).create_movie_service(
-            ModelMovie(**movie.model_dump(exclude={"id"}))
-        )
+        new_movie = MovieService(db).create_movie_service(movie)
         return JSONResponse(status_code=201, content=jsonable_encoder(new_movie))
 
 
 @movie_router.put(
     "/movies/{id}", 
     tags=["Movies"], 
-    response_model=Movie, 
+    response_model=dict, 
     status_code=200,
     dependencies=[Depends(JWTBearer())]
 )
-def update_movie(id: int, movie: Movie) -> Movie:
+def update_movie(id: int, movie: Movie) -> dict:
     with session() as db:
-        updated_movie = MovieService(db).update_movie_service(id, movie.model_dump(exclude={"id"}))
+        updated_movie = MovieService(db).update_movie_service(id, movie)
         return JSONResponse(status_code=200, content=jsonable_encoder(updated_movie))
 
 

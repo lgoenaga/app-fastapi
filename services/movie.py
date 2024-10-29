@@ -2,6 +2,8 @@ from fastapi import HTTPException, Query
 from models.movie import ModelMovie
 from typing import List
 
+from schema.movie import Movie
+
 class MovieService:
 
     def __init__(self, movie_repository):
@@ -54,21 +56,23 @@ class MovieService:
         self.movie_repository.close()
         return movies_data
 
-    def create_movie_service(self, movie_data: dict) -> ModelMovie:
-        self.movie_repository.add(movie_data)
+    def create_movie_service(self, movie: Movie) -> ModelMovie:
+        new_movie = ModelMovie(**movie.model_dump(exclude={"id"}))
+        self.movie_repository.add(new_movie)
         self.movie_repository.commit()
-        self.movie_repository.refresh(movie_data)
+        self.movie_repository.refresh(new_movie)
         self.movie_repository.close()
-        return movie_data
+        return new_movie
 
-    def update_movie_service(self, id: int, movie_data: dict) -> ModelMovie:
+    def update_movie_service(self, id: int, movie: Movie) -> ModelMovie:
         movie_to_update = self.get_movie_by_id_service(id)   
         if not movie_to_update:
             self.movie_repository.close()
             raise HTTPException(
                 status_code=404, detail="Película no encontrada"
-            )           
-        for key, value in movie_data.items():
+            )
+        updated_movie = movie.model_dump(exclude={"id"})
+        for key, value in updated_movie.items():
             setattr(movie_to_update, key, value)     
         self.movie_repository.commit()
         self.movie_repository.refresh(movie_to_update)
