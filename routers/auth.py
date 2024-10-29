@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
 from jwt_manager import create_token
-from model import UserModel
+from schema.user import UserModel
 
 auth_router = APIRouter()
 

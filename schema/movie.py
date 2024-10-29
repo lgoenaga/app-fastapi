@@ -1,26 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import Optional
 
-
-class UserModel(BaseModel):
-    username: str = Field(
-        min_length=3,
-        max_length=50,
-        description="Nombre de usuario",
-    )
-    email: str = Field(
-        description="Correo electrónico del usuario",
-    )
-    password: str = Field(
-        min_length=4,
-        max_length=50,
-        description="Contraseña del usuario",
-    )
-    is_active: bool = Field(
-        default=True,
-        description="Indica si el usuario está activo",
-    )
-    
 class Movie(BaseModel):
     id: Optional[int] = None
     title: str = Field(
@@ -44,11 +24,11 @@ class Movie(BaseModel):
         description="Año de la película entre 1900 y 2024",
     )
     categories: str = Field(
-        min_length=5, 
-        max_length=10, 
+        min_length=5,
+        max_length=10,
         description="Categorías de la película",
     )
-  
+
     model_config = {
         "json_schema_extra": {
             "examples": [
@@ -58,23 +38,8 @@ class Movie(BaseModel):
                     "description": "Descripción de mi película",
                     "rating": 8.0,
                     "year": 2020,
-                    "categories": "Action"
+                    "categories": "Action",
                 }
             ]
         }
     }
-    
-
-    """
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "id": 1,
-                "title": "Mi película",
-                "description": "Descripción de mi película",
-                "rating": 8.0,
-                "year": 2020,
-                "categories": ["Action", "Thriller"],
-            }
-        }
-    """

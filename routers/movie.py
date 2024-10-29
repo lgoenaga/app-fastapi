@@ -3,9 +3,9 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from typing import List
 from middleware.jwt_bearer import JWTBearer
-from model import Movie
 from models.movie import ModelMovie
 from config.database import session
+from schema.movie import Movie
 from services.movie import MovieService
 
 movie_router =  APIRouter()
